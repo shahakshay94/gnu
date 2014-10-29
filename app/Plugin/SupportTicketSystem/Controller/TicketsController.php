@@ -26,7 +26,7 @@ class TicketsController extends SupportTicketSystemAppController {
  *
  * @return void
  */
-	public function adminindex() {
+	public function admin_index() {
 		$this->loadModel('Setting');
 		$data = $this->Setting->find('first');
 		$pagination_value = $data['Setting']['pagination_value'];
