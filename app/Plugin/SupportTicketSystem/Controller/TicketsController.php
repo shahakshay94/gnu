@@ -139,11 +139,6 @@ class TicketsController extends SupportTicketSystemAppController {
 		
 	}
 
-
-
-
-
-
 /**
  * edit method
  *

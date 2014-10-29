@@ -55,14 +55,7 @@
           <li><?php echo $this->Html->link(__("View Tickets"), array('plugin'=>'support_ticket_system','controller' => 'tickets', 'action' => 'index'))?></li>
           <li><?php if(Auth::hasRoles(['stadmin','stcoordinator','superadmin','developer'])) { echo $this->Html->link(__("Manage Tickets"),array('plugin'=>'support_ticket_system','controller' => 'tickets', 'action' => 'manage_tickets')); } ?></li>
           <li><?php if(Auth::hasRoles(['stadmin','superadmin','developer'])) { echo $this->Html->link(__("View all tickets"), array('plugin'=>'support_ticket_system','controller' => 'tickets', 'action' => 'adminindex')); }?></li>
-          <?php if(Auth::hasRoles(['stcoordinator','user','developer'] && !Auth::hasRoles(['stadmin']))) {?>
-          <li class="divider"></li>
-          <li class="dropdown-header">View</li>
-
-          <li><?php if(Auth::user('student_id')) { echo $this->Html->link(__("View Profile"),array('plugin'=>'support_ticket_system','controller' => 'students', 'action' => 'view', AuthComponent::user('student_id'))); } ?></li>
-          <li><?php if(Auth::user('staff_id')) { echo $this->Html->link(__("View Profile"),array('plugin'=> false,'controller' => 'staffs', 'action' => 'view', AuthComponent::user('staff_id'))); } ?></li>
-          <li><?php if(Auth::hasRoles(['stadmin','superadmin','developer'])) { echo $this->Html->link(__("Settings"),array('plugin'=>'support_ticket_system','controller' => 'settings', 'action' => 'index')); } ?></li>
-          <?php } ?>
+          
           </ul>
           </li>
           <?php if(Auth::hasRoles(['stadmin','superadmin','developer'])) {?>
