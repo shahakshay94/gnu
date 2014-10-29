@@ -10,6 +10,7 @@
           </button>
              <p style="padding-left: 20px;">   <?php echo $this->Html->image('gnulogo.png', array('alt' => 'GNU', 'border' => '0')); ?></p>
         </div>
+        <h3 style="padding-left:200px;">Support Ticket System Module</h3>
         <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
         <li>
@@ -236,7 +237,7 @@
                 <li>
                   <?php if(Auth::user('student_id')){ 
                     echo $this->Html->link(__("View Profile"),[
-                    'plugin'=>'support_ticket_system',
+                    'plugin'=>false,
                     'controller' => 'students',
                     'action' => 'view',
                     AuthComponent::user('student_id')]); } ?>

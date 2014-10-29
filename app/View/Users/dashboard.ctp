@@ -6,6 +6,15 @@
 <?php print  "Your last login was at ".$this->Time->nice($modified); ?>
 </p>
 <p>
+<?php if(Auth::user('student_id')){ 
+                    echo $this->Html->link(__("View Profile"),[
+                    'plugin'=>false,
+                    'controller' => 'students',
+                    'action' => 'view',
+                    AuthComponent::user('student_id')]); }
+?>
+</p>
+<p>
 <?php
 echo $this->Html->link(
     $this->Html->image('support-ticket.png', ['alt' => 'support-ticket']),
