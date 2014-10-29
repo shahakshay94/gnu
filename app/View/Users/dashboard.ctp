@@ -6,9 +6,6 @@
 <?php print  "Your last login was at ".$this->Time->nice($modified); ?>
 </p>
 <p>
-<?php print $this->Html->link('Logout',['controller' => 'users' ,'action'=>'logout']); ?>
-</p>
-<p>
 <?php
 echo $this->Html->link(
     $this->Html->image('support-ticket.png', ['alt' => 'support-ticket']),

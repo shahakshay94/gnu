@@ -30,7 +30,17 @@
   </head>
   <body>
     <div class="row" style="width:100%;">
-      <div class="span4"><?php echo $this->Element('navigation'); ?></div>
+      <div class="span4">
+        <?php if($this->Session->check('Auth.User.id'))
+        {
+         echo $this->Element('navigation');
+        }
+        else
+        {
+          echo $this->Element('login');          
+        }
+         ?>
+       </div>
     </div>
     
     <div class="container">

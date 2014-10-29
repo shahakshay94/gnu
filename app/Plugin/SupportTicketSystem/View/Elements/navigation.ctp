@@ -28,7 +28,7 @@
         <li class="dropdown menu-large">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Support Ticket<b class="caret"></b></a>				
         <ul class="dropdown-menu megamenu row">
-        <li class="col-sm-3">
+        <li class="col-sm-2">
         <ul>
 <!-- Categories dropdown starts from here -->
           <?php if(Auth::hasRoles(['superadmin','stadmin','developer'])) {?>
@@ -124,7 +124,7 @@
 
 <!-- Statuses dropdown starts from here -->
          
-          <li class="col-sm-3">
+          <li class="col-sm-2">
           <ul>
 
             <?php if(Auth::hasRoles(['superadmin','stadmin','developer'])) {?>
@@ -210,7 +210,7 @@
 <!-- Reports, Views and Settings dropdown starts from here -->
 
           <?php if(Auth::hasRoles(['stadmin','superadmin','developer'])) {?>
-					<li class="col-sm-3">
+					<li class="col-sm-2">
 						<ul>
               <!-- Report starts -->
 							<li class="dropdown-header">Reports</li>
