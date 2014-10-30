@@ -20,10 +20,13 @@
 		<td>
 			<?php echo $this->Html->link($ticket['Staff']['firstname']." ".$ticket['Staff']['lastname'], array('controller' => 'staffs', 'action' => 'view', $ticket['Staff']['id'])); ?>
 		</td>
+		
 		<td>
 			<?php echo $this->Html->link($ticket['Category']['name'], array('controller' => 'categories', 'action' => 'view', $ticket['Category']['id'])); ?>
 		</td>
-		<td><?php echo h($ticket['Ticket']['subject']); ?>&nbsp;</td>
+		<td>
+			<?php echo h($ticket['Ticket']['subject']); ?>&nbsp;
+		</td>
 		<td>
 			<?php echo $this->Html->link($ticket['Status']['name'], array('controller' => 'statuses', 'action' => 'view', $ticket['Status']['id'])); ?>
 		</td>

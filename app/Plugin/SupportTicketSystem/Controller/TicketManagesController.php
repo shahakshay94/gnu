@@ -88,7 +88,9 @@ class TicketManagesController extends SupportTicketSystemAppController {
 			    	$this->request->data['UserRole']['user_id'] = $data['User']['id'];
 			    	$this->request->data['UserRole']['role_id'] = Configure::read('stcoordinator');
 			    	if($this->UserRole->save($this->request->data)) {
-						$this->Session->setFlash(__('The ticket coordinator has been saved.'));
+						$this->Session->setFlash(__('The ticket coordinator has been saved.'), 'alert', array(
+				'class' => 'alert-success'
+			));
 						return $this->redirect(array('action' => 'index_developer'));
 					}	
 				}
@@ -120,7 +122,9 @@ class TicketManagesController extends SupportTicketSystemAppController {
 			    	$this->request->data['UserRole']['user_id'] = $data['User']['id'];
 			    	$this->request->data['UserRole']['role_id'] = Configure::read('stcoordinator');
 			    	if($this->UserRole->save($this->request->data)) {
-						$this->Session->setFlash(__('The ticket coordinator has been saved.'));
+						$this->Session->setFlash(__('The ticket coordinator has been saved.'), 'alert', array(
+				'class' => 'alert-success'
+			));
 						return $this->redirect(array('action' => 'index'));
 					}	
 				}
@@ -157,7 +161,9 @@ public function add_deptcoord() {
 			    	$this->request->data['UserRole']['user_id'] = $data['User']['id'];
 			    	$this->request->data['UserRole']['role_id'] = Configure::read('deptcoordinator');
 			    	if($this->UserRole->save($this->request->data)) {
-						$this->Session->setFlash(__('The ticket coordinator has been saved.'));
+						$this->Session->setFlash(__('The ticket coordinator has been saved.'), 'alert', array(
+				'class' => 'alert-success'
+			));
 						return $this->redirect(array('action' => 'index'));
 					}	
 				}
@@ -211,14 +217,20 @@ public function add_deptcoord() {
 			    	$this->request->data['UserRole']['id'] = $data1['UserRole']['id'];
 			    	$this->request->data['UserRole']['recstatus'] = 0;
 			    	if($this->UserRole->save($this->request->data)) {
-						$this->Session->setFlash(__('The Manager has been deactivated.'));
-						return $this->redirect(array('action' => 'index'));
+						$this->Session->setFlash(__('The Staff has been deactivated.'), 'alert', array(
+				'class' => 'alert-success'
+			));
+						return $this->redirect(['plugin'=>'support_ticket_system',
+           										'controller' => 'pages',
+           										'action' => 'dashboard']);
 					}	
             	}
             } else {
                 $this->Session->setFlash(__('The Manager cannot be deactivated. Please, try again.'));
             }
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['plugin'=>'support_ticket_system',
+           										'controller' => 'pages',
+           										'action' => 'dashboard']);
         }
     }
 

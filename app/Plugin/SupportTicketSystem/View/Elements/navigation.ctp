@@ -117,7 +117,7 @@
                      echo $this->Html->link(__("View all tickets"),[
                       'plugin'=>'support_ticket_system',
                       'controller' => 'tickets', 
-                      'action' => 'admin_index']); }?>
+                      'action' => 'adminindex']); }?>
                   </li>          
               </ul>
             </li>

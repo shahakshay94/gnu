@@ -170,12 +170,16 @@ class CategoriesController extends SupportTicketSystemAppController {
             $this->request->data['Category']['recstatus'] = 0;
             
             if ($this->Category->save($this->request->data,true,array('id','recstatus'))) {
-                $this->Session->setFlash(__('The category has been deactivated.'));
+                $this->Session->setFlash(__('The category has been deactivated.'), 'alert', array(
+				'class' => 'alert-success'
+			));
             } else {
                 $this->Session->setFlash(__('The category cannot be deactivated. Please, try again.'));
             }
             
-            return $this->redirect(array('action' => 'index'));
+            return $this->redirect(['plugin'=>'support_ticket_system',
+           										'controller' => 'pages',
+           										'action' => 'dashboard']);
         }
     }
     
