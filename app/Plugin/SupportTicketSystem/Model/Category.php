@@ -22,15 +22,15 @@ public $displayField = 'name';
 public $validate = array(
 
     'name' => array(
+
+        'unique' => array('rule' => array('checkUnique',array('name','institution_id','department_id')),
+                                           'message' => 'Category exists for this system.'),
         'required' => array(
-            'rule' => array('notEmpty'),
-            'message' => 'You must enter a category.'
+                        'rule' => array('notEmpty'),
+                        'message' => 'You must enter a category.'
         ),
-        /*'unique' => array(
-            'rule'    => 'isUnique',
-            'message' => 'This category already exists'
-        ),*/
-    ),
+    )
+        
 );
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 

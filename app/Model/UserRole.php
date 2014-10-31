@@ -8,6 +8,16 @@ App::uses('AppModel', 'Model');
  */
 class UserRole extends AppModel {
 
+	public $validate = array(
+
+    'user_id' => array(
+
+        'unique' => array('rule' => array('checkUnique',array('user_id','role_id','recstatus')),
+                                           'message' => 'For this User , Role exists!'
+                         ),
+       				 )       
+				);
+
 /**
  * Display field
  *

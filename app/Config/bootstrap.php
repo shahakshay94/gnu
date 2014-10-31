@@ -138,5 +138,5 @@ Configure::write('fbadmin',5);
 Configure::write('deptcoordinator',6);
 Configure::write('stcoordinator',7);
 Configure::write('user',8);
-
+//Configure::write('company',9);
 

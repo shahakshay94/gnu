@@ -375,19 +375,23 @@ public function add_developer_deptcoord(){
  			    		 $this->request->data['UserRole']['user_id'] = $data['User']['id']; // appending the user id after findind itz User
  			   			 $this->request->data['UserRole']['role_id'] = $this->request->data['ManageRole']['role_id'];//copy role_id value from managerole to userrole table
  			   			 if($this->ManageRole->Role->UserRole->save($this->request->data)){ // save data in USERROLE table		
- 							$this->Session->setFlash(__('The Co-ordinator has been saved.'));
+ 							$this->Session->setFlash(__('The Co-ordinator has been saved.') , 'alert', array(
+				'class' => 'alert-success'
+			));
  				}
  			}
  			else  {
- 			    		 $this->Session->setFlash(__('The Co-ordinator could not be saved. Please, try again.'));
+ 			    		 $this->Session->setFlash(__('The Co-ordinator could not be saved. Please, try again.') , 'alert', array(
+				'class' => 'alert-success'
+			));
  		          }
  		
  	}	
  				unset($this->request->data);
-                     $institutions = $this->ManageRole->Institution->find('list');
-                     $departments = [];
-            			$staffs = [];
-            			$roles = $this->ManageRole->Role->find('list',array( 'conditions'=>array('Role.id'=>array('6'))));
+                    $institutions = $this->ManageRole->Institution->find('list');
+                    $departments = [];
+            		$staffs = [];
+            		$roles = $this->ManageRole->Role->find('list',array( 'conditions'=>array('Role.id'=>array('6'))));
           			$this->set(compact('institutions', 'departments', 'staffs','roles'));
  
     }
@@ -408,12 +412,16 @@ public function add_developer_deptcoord(){
 						 $data = $this->ManageRole->Staff->find('first',['conditions'=>['Staff.id'=>$userid]]);
 	    				 $this->request->data['ManageRole']['institution_id'] = $data['Staff']['institution_id'];
  			   			 if($this->ManageRole->Role->UserRole->save($this->request->data)){ // save data in USERROLE table		
- 							$this->Session->setFlash(__('The Co-ordinator has been saved.'));
+ 							$this->Session->setFlash(__('The Co-ordinator has been saved.') , 'alert', array(
+				'class' => 'alert-success'
+			));
  						
  				}
  			}
  			else  {
- 			    		 $this->Session->setFlash(__('The Co-ordinator could not be saved. Please, try again.'));
+ 			    		 $this->Session->setFlash(__('The Co-ordinator could not be saved. Please, try again.') , 'alert', array(
+				'class' => 'alert-success'
+			));
  		          }
  		
  	}	
