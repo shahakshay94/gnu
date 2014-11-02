@@ -43,7 +43,7 @@ function transfer($id = NULL)
 			));
 		}
 		else {
-			$this->Session->setFlash(__('The category could not be saved. Please, try again.'));
+			$this->Session->setFlash(__(' Please, try again.'));
 		}
 	}
 	}
@@ -57,4 +57,15 @@ function transfer($id = NULL)
 	$categories = [];
 	$this->set(compact('departments', 'categories'));
 	}
+	public function manage_transferred_tickets() {
+		$this->loadModel('Setting');
+		$this->loadModel('User');
+		$data = $this->Setting->find('first');
+		$pagination_value = $data['Setting']['pagination_value'];
+		$this->Paginator->settings = array('limit' => $pagination_value,'page' => 1,'contain'=>['Staff','Category','Status','Ticket'=>['User'],
+																					'conditions'=>['DepartmentTransfer.staff_id'=>$this->Auth->user('staff_id')]]);
+		$this->set('tickets', $this->Paginator->paginate());
+	}
+
+	
 }

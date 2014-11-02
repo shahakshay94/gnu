@@ -39,8 +39,8 @@ class AppModel extends Model {
 		{
 		$fields = array($fields);
 		}
-		var_dump($fields);
-		 
+		//var_dump($fields);
+		 debug($fields); 
 		// go trough all columns and get their values from the parameters
 		
 		foreach($fields as $key)

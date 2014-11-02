@@ -201,11 +201,15 @@ class CategoriesController extends SupportTicketSystemAppController {
             $this->request->data['Category']['recstatus'] = 1;
             
             if ($this->Category->save($this->request->data,true,array('id','recstatus'))) {
-                $this->Session->setFlash(__('The category has been activated.'));
+                $this->Session->setFlash(__('The category has been activated.'), 'alert', array(
+				'class' => 'alert-success'
+			));
             } else {
                 $this->Session->setFlash(__('The category cannot be activated. Please, try again.'));
             }
-            return $this->redirect(array('action' => 'index'));
+            return $this->redirect(['plugin'=>'support_ticket_system',
+           										'controller' => 'pages',
+           										'action' => 'dashboard']);
         }
     }
     
@@ -221,6 +225,7 @@ class CategoriesController extends SupportTicketSystemAppController {
 			$this->set(compact('categories'));
 			$this->set('_serialize', array('categories'));
 	}
+	
 	public function list_categories(){
     		$this->request->onlyAllow('ajax');
 			$id = $this->request->query('id');

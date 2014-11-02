@@ -30,7 +30,7 @@ class TicketsController extends SupportTicketSystemAppController {
 		$this->loadModel('Setting');
 		$data = $this->Setting->find('first');
 		$pagination_value = $data['Setting']['pagination_value'];
-		$this->Paginator->settings = array('limit' => $pagination_value,'page' => 1,'contain'=>['Staff','Category','Status','User']);
+		$this->Paginator->settings = array('limit' => $pagination_value,'page' => 1,'contain'=>['Staff','Category'=>['Institution','Department'],'Status','User']);
 		$this->set('tickets', $this->Paginator->paginate());
 	}
 

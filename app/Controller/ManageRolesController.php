@@ -74,13 +74,14 @@ public function add_superadmin()
 {
 	if($this->request->is('post') && $this->request->data['ManageRole']['staff_id'] != 0){
  			$this->ManageRole->create();
-                        $this->request->data['ManageRole']['role_id'] = Configure::read('superadmin'); ; // role is 1 as it is superadmin MANUALLy set
- 			if ($this->ManageRole->save($this->request->data)){	//saves the data is managerole table
- 				$staff_id = $this->request->data['ManageRole']['staff_id']; //staff which we have selected itz id is stored in variable staffid
- 			    $data = $this->ManageRole->Role->UserRole->User->find('first',['conditions'=>['User.staff_id'=>$staff_id]]); // finding that id in USER table
- 			    $this->request->data['UserRole']['user_id'] = $data['User']['id']; // appending the user id after findind itz User
-			    $this->request->data['UserRole']['role_id'] = Configure::read('superadmin'); // 1 super admin manually set
- 			   if($this->ManageRole->Role->UserRole->save($this->request->data)){ // save data in USERROLE table
+                        $this->request->data['ManageRole']['role_id'] = Configure::read('superadmin');
+                         $this->request->data['ManageRole']['recstatus'] = 1 ;
+ 			if ($this->ManageRole->save($this->request->data)){	
+ 				$staff_id = $this->request->data['ManageRole']['staff_id']; 
+ 			    $data = $this->ManageRole->Role->UserRole->User->find('first',['conditions'=>['User.staff_id'=>$staff_id]]);
+ 			    $this->request->data['UserRole']['user_id'] = $data['User']['id']; 
+			    $this->request->data['UserRole']['role_id'] = Configure::read('superadmin'); 
+ 			   if($this->ManageRole->Role->UserRole->save($this->request->data)){
  				
  						$this->Session->setFlash(__('The Super Admin has been saved.'), 'alert', array(
      'class' => 'alert-success'

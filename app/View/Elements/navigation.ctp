@@ -21,7 +21,7 @@
         </li>
 
         <li class="dropdown menu-large">
-          <?php if(!Auth::hasRoles(['user','deptcoordinator'])) {?>
+          <?php if(!Auth::hasRoles(['user','deptcoordinator','stcoordinator'])) {?>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Roles<b class="caret"></b></a>  
           <?php } ?>      
         <ul class="dropdown-menu megamenu row">

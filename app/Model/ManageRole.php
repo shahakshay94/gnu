@@ -7,15 +7,15 @@ App::uses('AppModel', 'Model');
  */
 class ManageRole extends AppModel {
 
-	public $validate = array(
+	/*public $validate = array(
 
     'staff_id' => array(
 
         'unique' => array('rule' => array('checkUnique',array('staff_id','role_id','recstatus')),
-                                           'message' => 'For this Staff , another Role exists! Please select another staff!'
+                                           'message' => 'For this Staff , same Role exists! '
                          ),
        				 )       
-				);
+				);*/
 
 
 /**

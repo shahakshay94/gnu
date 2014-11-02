@@ -112,8 +112,16 @@
                        'action' => 'manage_tickets']); } ?>
                     </li>
 
+                    <li>
+                    <?php if(Auth::hasRoles(['stcoordinator'])) { 
+                      echo $this->Html->link(__("Manage Transferred Tickets"),[
+                      'plugin'=>'support_ticket_system',
+                      'controller' => 'department_transfers',
+                       'action' => 'manage_transferred_tickets']); } ?>
+                    </li>
+
                   <li>
-                    <?php if(Auth::hasRoles(['stadmin','superadmin','developer'])) {
+                    <?php if(Auth::hasRoles(['developer'])) {
                      echo $this->Html->link(__("View all tickets"),[
                       'plugin'=>'support_ticket_system',
                       'controller' => 'tickets', 
@@ -241,7 +249,7 @@
                 <li>
                   <?php if(Auth::user('staff_id')) { 
                     echo $this->Html->link(__("View Profile"),[
-                    'plugin'=>'support_ticket_system',
+                    'plugin'=>false,
                     'controller' => 'staffs',
                     'action' => 'view', 
                     AuthComponent::user('staff_id')]); } ?>
