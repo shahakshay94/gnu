@@ -60,7 +60,6 @@ function transfer($id = NULL)
 
 	public function manage_transferred_tickets() {
 		$this->loadModel('Setting');
-		$this->loadModel('User');
 		$data = $this->Setting->find('first');
 		$pagination_value = $data['Setting']['pagination_value'];
 		$this->Paginator->settings = array('limit' => $pagination_value,'page' => 1,'contain'=>['Staff','Category','Status','Ticket'=>['User']],
@@ -95,8 +94,8 @@ public function change_status($id = null) {
 			}
 
 			$options = array(
-				'recursive' => - 1,
-				'contain' => ['Staff','Category','Status','Ticket'=>['User']],
+				'recursive' => -1,
+				'contain' => ['Staff','Category','Status','Ticket'=>['User','Staff'=>['Department']]],
 				'conditions' => array('DepartmentTransfer.' . $this->DepartmentTransfer->primaryKey => $id
 				)
 			);
