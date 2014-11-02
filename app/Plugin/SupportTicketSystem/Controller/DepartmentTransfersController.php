@@ -57,15 +57,49 @@ function transfer($id = NULL)
 	$categories = [];
 	$this->set(compact('departments', 'categories'));
 	}
+
 	public function manage_transferred_tickets() {
 		$this->loadModel('Setting');
 		$this->loadModel('User');
 		$data = $this->Setting->find('first');
 		$pagination_value = $data['Setting']['pagination_value'];
-		$this->Paginator->settings = array('limit' => $pagination_value,'page' => 1,'contain'=>['Staff','Category','Status','Ticket'=>['User'],
-																					'conditions'=>['DepartmentTransfer.staff_id'=>$this->Auth->user('staff_id')]]);
-		$this->set('tickets', $this->Paginator->paginate());
+		$this->Paginator->settings = array('limit' => $pagination_value,'page' => 1,'contain'=>['Staff','Category','Status','Ticket'=>['User']],
+																					'conditions'=>['DepartmentTransfer.staff_id'=>$this->Auth->user('staff_id')]);
+		$this->set('transfers', $this->Paginator->paginate());
 	}
 
-	
+public function change_status($id = null) {
+		if (!$this->DepartmentTransfer->exists($id)) {
+			throw new NotFoundException(__('Invalid ticket'));
+		}
+		
+		if ($this->request->is(array('post', 'put'))) {
+			$this->request->data['DepartmentTransfer']['id'] = $id;
+			if ($this->DepartmentTransfer->save($this->request->data)) {
+				$this->Session->setFlash(__('The status has been saved.'), 'alert', array(
+				'class' => 'alert-success'
+			));
+				return $this->redirect(array('action' => 'manage_transferred_tickets'));
+			} else {
+				$this->Session->setFlash(__('The status could not be saved. Please, try again.'));
+			}
+		}
+		unset($this->request->data);
+		$statuses = $this->DepartmentTransfer->Status->find('list');
+		
+	}
+	public function view($id = null)
+		{
+			if (!$this->DepartmentTransfer->exists($id)) {
+				throw new NotFoundException(__('Invalid Ticket'));
+			}
+
+			$options = array(
+				'recursive' => - 1,
+				'contain' => ['Staff','Category','Status','Ticket'=>['User']],
+				'conditions' => array('DepartmentTransfer.' . $this->DepartmentTransfer->primaryKey => $id
+				)
+			);
+			$this->set('transfer', $this->DepartmentTransfer->find('first', $options));
+		}
 }

@@ -1,12 +1,10 @@
-<?php
-debug($tickets);
-?>
+
 <div class="tickets index">
 	<h2><?php echo __('Manage Tickets'); ?></h2>
 	<table cellpadding="0" cellspacing="0" class="table table-striped">
 	<tr>
 			
-			<th><?php echo $this->Paginator->sort('ticket_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('ticket_no'); ?></th>
 			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('staff_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('category_id'); ?></th>
@@ -17,10 +15,9 @@ debug($tickets);
 	<?php foreach ($tickets as $ticket): ?>
 	<tr>
 		
+		<td><?php echo h($ticket['Ticket']['ticket_no']); ?>&nbsp;</td>
 		<td>
-			<?php echo h($ticket['DepartmentTransfer']['Ticket']['ticket_id']); ?>&nbsp;</td>
-		<td>
-			<?php echo h($ticket['DepartmentTransfer']['Ticket']['User']['fullname']); ?>
+			<?php echo h($ticket['User']['fullname']); ?>
 		</td>
 		<td>
 			<?php echo h($ticket['Staff']['firstname']." ".$ticket['Staff']['lastname']); ?>
@@ -33,9 +30,11 @@ debug($tickets);
 			<?php echo h($ticket['Status']['name']); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ticket['Ticket']['id'])); ?>			
+			<?php echo $this->Html->link(__('View'), array("onMouseOver" => "Tip('Test');",'action' => 'view', $ticket['Ticket']['id'])); ?>
+			<?php if($ticket['Status']['id'] != 5 ){ ?>
 			<?php echo $this->Html->link(__('Change Ticket Status'), array('action' => 'change_status', $ticket['Ticket']['id'])); ?>
-			<?php echo $this->Html->link(__('Transfer it!'), array('controller'=>'department_transfers','plugin'=> 'support_ticket_system','action' => 'transfer', $ticket['Ticket']['id'])); ?>			
+			<?php echo $this->Html->link(__('Transfer it!'), array('controller'=>'department_transfers','plugin'=> 'support_ticket_system','action' => 'transfer', $ticket['Ticket']['id'])); ?>
+			<?php } ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

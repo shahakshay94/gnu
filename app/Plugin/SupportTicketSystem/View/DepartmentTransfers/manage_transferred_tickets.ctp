@@ -1,10 +1,10 @@
 
-<div class="tickets index">
-	<h2><?php echo __('Manage Tickets'); ?></h2>
+<div class="transfers index">
+	<h2><?php echo __('Manage Transferred Tickets'); ?></h2>
 	<table cellpadding="0" cellspacing="0" class="table table-striped">
 	<tr>
 			
-			<th><?php echo $this->Paginator->sort('ticket_no'); ?></th>
+			<th><?php echo $this->Paginator->sort('ticket_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('staff_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('category_id'); ?></th>
@@ -12,29 +12,30 @@
 			<th><?php echo $this->Paginator->sort('status_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
-	<?php foreach ($tickets as $ticket): ?>
+	<?php foreach ($transfers as $transfer): ?>
 	<tr>
 		
-		<td><?php echo h($ticket['DepartmentTransfer']['Ticket']['ticket_no']); ?>&nbsp;</td>
+		<td><?php echo h($transfer['DepartmentTransfer']['ticket_id']); ?>&nbsp;</td>
 		<td>
-			<?php echo h($ticket['DepartmentTransfer']['Ticket']['User']['fullname']); ?>
+			<?php echo h($transfer['Ticket']['User']['fullname']); ?>
 		</td>
 		<td>
-			<?php echo h($ticket['Staff']['firstname']." ".$ticket['Staff']['lastname']); ?>
+			<?php echo h($transfer['Staff']['firstname']." ".$transfer['Staff']['lastname']); ?>
 		</td>
 		<td>
-			<?php echo h($ticket['Category']['name']); ?>
+			<?php echo h($transfer['Category']['name']); ?>
 		</td>
-		<td><?php echo h($ticket['Ticket']['subject']); ?>&nbsp;</td>
+		<td><?php echo h($transfer['Ticket']['subject']); ?>&nbsp;</td>
 		<td>
-			<?php echo h($ticket['Status']['name']); ?>
+			<?php echo h($transfer['Status']['name']); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array("onMouseOver" => "Tip('Test');",'action' => 'view', $ticket['Ticket']['id'])); ?>
-			<?php if($ticket['Status']['id'] != 5 ){ ?>
-			<?php echo $this->Html->link(__('Change Ticket Status'), array('action' => 'change_status', $ticket['Ticket']['id'])); ?>
-			<?php echo $this->Html->link(__('Transfer it!'), array('controller'=>'department_transfers','plugin'=> 'support_ticket_system','action' => 'transfer', $ticket['Ticket']['id'])); ?>
-			<?php } ?>
+
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $transfer['DepartmentTransfer']['id'])); ?>
+			
+			<?php echo $this->Html->link(__('Change Ticket Status'), array('action' => 'change_status', $transfer['DepartmentTransfer']['id'])); ?>
+			
+			
 		</td>
 	</tr>
 <?php endforeach; ?>
