@@ -54,12 +54,18 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data,true,array('username','pwd','pwd_repeat','fullname'))) {
-				$this->Session->setFlash(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'dashboard'));
+				
+                $lastid = $this->User->getLastInsertId();
+                $this->request->data['UserRole']['user_id'] = $lastid;
+                $this->request->data['UserRole']['role_id'] = Configure::read('user');
+                if ($this->User->UserRole->save($this->request->data)) {
+
+                    $this->Session->setFlash(__('The user has been saved.'));
+				
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
 			}
-		}
+		}}
 	}
 
 /**

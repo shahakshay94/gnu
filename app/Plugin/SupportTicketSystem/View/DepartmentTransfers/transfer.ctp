@@ -26,7 +26,7 @@
 
 		echo $this->Form->input('department_id', array('id' => 'departments','empty' => 'Please Select First','rel' => $urla,'options'=>$departments));
 		echo $this->Form->input('category_id', array('id' => 'categories','empty' => $emptyCategory));
-		echo $this->Form->input('reasons_for_transfer',array('label'=>'Reason for transfer!', 'type'=>'textarea'));    //textarea input 		
+		echo $this->Form->input('reasons_for_transfer',array('label'=>'Reason for transfer!', 'type'=>'textarea')); //textarea input 		
 	?>
 	<?php echo $this->Form->submit('Transfer It !', array(
 				'div' => false,

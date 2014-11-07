@@ -33,6 +33,7 @@ function transfer($id = NULL)
 		if ($this->DepartmentTransfer->save($this->request->data, true, array('ticket_id','department_id','category_id','staff_id',	'status_id','reasons_for_transfer'))) {
 			$this->request->data['Ticket']['id']=$id;
 			$this->request->data['Ticket']['status_id'] = Configure::read('Transferred');
+			$this->request->data['Ticket']['recstatus'] = 0;
 			if ($this->DepartmentTransfer->Ticket->save($this->request->data)){
 			$this->Session->setFlash(__('Transferred.') , 'alert', array(
 				'class' => 'alert-success'
@@ -84,7 +85,9 @@ public function change_status($id = null) {
 			}
 		}
 		unset($this->request->data);
-		$statuses = $this->DepartmentTransfer->Status->find('list');
+		$statuses = $this->DepartmentTransfer->Status->find('list',['conditions'=>[
+																		'Status.id'=>[1,2]]]);
+		$this->set(compact('statuses'));
 		
 	}
 	public function view($id = null)
@@ -101,4 +104,30 @@ public function change_status($id = null) {
 			);
 			$this->set('transfer', $this->DepartmentTransfer->find('first', $options));
 		}
+	public function revoke($id = null)
+	{
+			if (!$this->DepartmentTransfer->exists($id)) {
+				throw new NotFoundException(__('Invalid Ticket'));
+			}
+			else
+			{
+				$this->request->data['DepartmentTransfer']['id'] = $id;
+				$this->request->data['DepartmentTransfer']['recstatus'] = 0;
+				$ticketid = $this->DepartmentTransfer->find('first',[
+														'fields'=>['DepartmentTransfer.ticket_id'],
+														'conditions'=>['DepartmentTransfer.id' => $id]]);
+				//debug($ticketid);				
+				$this->request->data['Ticket']['id'] = $ticketid['DepartmentTransfer']['ticket_id'];
+				$this->request->data['Ticket']['recstatus'] = 1;
+				$this->request->data['Ticket']['status_id'] = 1;
+				//debug($this->request->data); exit;
+				$this->DepartmentTransfer->save($this->request->data);
+				if($this->DepartmentTransfer->Ticket->save($this->request->data,true,array('recstatus'))){
+										$this->Session->setFlash(__('Revoked It!') , 'alert', array(
+				'class' => 'alert-success'
+			));
+				return $this->redirect(array('action' => 'manage_transferred_tickets'));
+				}
+			}	
+	}
 }

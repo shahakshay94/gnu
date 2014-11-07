@@ -4,7 +4,8 @@
 	<table cellpadding="0" cellspacing="0" class="table table-striped">
 	<tr>
 			
-			<th><?php echo $this->Paginator->sort('ticket_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('ticket_id'); ?></th>			
+			<th><?php echo $this->Paginator->sort('created','Transferred On'); ?></th>
 			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('staff_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('category_id'); ?></th>
@@ -12,10 +13,16 @@
 			<th><?php echo $this->Paginator->sort('status_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
-	<?php foreach ($transfers as $transfer): ?>
+		<?php foreach ($transfers as $transfer): ?>
+		<?php if($transfer['DepartmentTransfer']['recstatus'] != 0 ){ ?>
 	<tr>
 		
-		<td><?php echo h($transfer['DepartmentTransfer']['ticket_id']); ?>&nbsp;</td>
+		<td>
+			<?php echo h($transfer['DepartmentTransfer']['ticket_id']); ?>&nbsp;
+		</td>
+		<td>
+			<?php echo h($this->Time->nice($transfer['DepartmentTransfer']['created'])); ?>&nbsp;
+		</td>
 		<td>
 			<?php echo h($transfer['Ticket']['User']['fullname']); ?>
 		</td>
@@ -34,11 +41,13 @@
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $transfer['DepartmentTransfer']['id'])); ?>
 			
 			<?php echo $this->Html->link(__('Change Ticket Status'), array('action' => 'change_status', $transfer['DepartmentTransfer']['id'])); ?>
-			
+		
 			
 		</td>
 	</tr>
+	<?php } ?>	
 <?php endforeach; ?>
+
 	</table>
 	<p>
 	<?php

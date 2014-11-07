@@ -68,7 +68,8 @@ class TicketsController extends SupportTicketSystemAppController {
 			}
 		}
 		unset($this->request->data);
-		$statuses = $this->Ticket->Status->find('list');
+		$statuses = $this->Ticket->Status->find('list',['conditions'=>[
+																'Status.id'=>[1,2]]]);
 		$this->set(compact('statuses'));
 	}
 
